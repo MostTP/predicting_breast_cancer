@@ -1,4 +1,21 @@
+from enum import Enum
 from pydantic import BaseModel
+
+
+class YesNo(str, Enum):
+    Yes = "Yes"
+    No = "No"
+
+
+class Status(str, Enum):
+    Positive = "Positive"
+    Negative = "Negative"
+
+
+class MenopausalState(str, Enum):
+    Pre = "Pre"
+    Post = "Post"
+
 
 class Patient(BaseModel):
     Age_at_Diagnosis: float
@@ -7,11 +24,11 @@ class Patient(BaseModel):
     Neoplasm_Histologic_Grade: float
     Lymph_nodes_examined_positive: float
 
-    ER_Status: str
-    PR_Status: str
-    HER2_Status: str
-    Inferred_Menopausal_State: str
+    ER_Status: Status
+    PR_Status: Status
+    HER2_Status: Status
+    Inferred_Menopausal_State: MenopausalState
 
-    Chemotherapy: str = "No"
-    Hormone_Therapy: str = "No"
-    Radio_Therapy: str = "No"
+    Chemotherapy: YesNo = YesNo.No
+    Hormone_Therapy: YesNo = YesNo.No
+    Radio_Therapy: YesNo = YesNo.No
