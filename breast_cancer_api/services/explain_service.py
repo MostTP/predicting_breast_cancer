@@ -1,11 +1,10 @@
 import os
+import importlib
 import pandas as pd
 import numpy as np
-import shap
 
 from utils.preprocessing import prepare_patient_df
 from core.model_loader import model
-
 
 def _load_background(columns, n_samples=50):
     """Attempt to load a small background sample from the METABRIC CSV.
@@ -38,6 +37,14 @@ def explain(patient_dict: dict):
 
     The returned structure is: {"features": [{"feature": name, "impact": float}, ...]}
     """
+    try:
+        shap = importlib.import_module("shap")
+    except ImportError:
+        return {
+            "error": "explainability_unavailable",
+            "message": "The 'shap' package is not installed in this Python environment."
+        }
+
     df = prepare_patient_df(patient_dict)
 
     # Try to build a sensible background dataset for the explainer

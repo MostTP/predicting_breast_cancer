@@ -1,0 +1,46 @@
+{
+  "categorical_features": [
+    "ER Status",
+    "PR Status",
+    "HER2 Status",
+    "Inferred Menopausal State",
+    "Chemotherapy",
+    "Hormone Therapy",
+    "Radio Therapy"
+  ],
+  "causal_status": "Not a causal treatment-effect model",
+  "features": [
+    "Age at Diagnosis",
+    "Tumor Size",
+    "Tumor Stage",
+    "Neoplasm Histologic Grade",
+    "Lymph nodes examined positive",
+    "ER Status",
+    "PR Status",
+    "HER2 Status",
+    "Inferred Menopausal State",
+    "Chemotherapy",
+    "Hormone Therapy",
+    "Radio Therapy"
+  ],
+  "metrics_file": "metrics.json",
+  "model_family": "Support Vector Machine classifier",
+  "model_name": "svm_breast_cancer_recommender",
+  "numeric_features": [
+    "Age at Diagnosis",
+    "Tumor Size",
+    "Tumor Stage",
+    "Neoplasm Histologic Grade",
+    "Lymph nodes examined positive"
+  ],
+  "probability_status": "CalibratedClassifierCV used; external calibration validation still required",
+  "target_definition": "1 when survival is at least 60 months, the patient is living, and relapse status indicates no relapse; 0 otherwise.",
+  "target_name": "Effective_Treatment",
+  "threshold": 0.3,
+  "trained_at": "2026-06-12T00:22:26.264887+00:00",
+  "treatment_features": [
+    "Chemotherapy",
+    "Hormone Therapy",
+    "Radio Therapy"
+  ]
+}
