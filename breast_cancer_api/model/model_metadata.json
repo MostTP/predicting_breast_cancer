@@ -25,7 +25,9 @@
   ],
   "metrics_file": "metrics.json",
   "model_family": "Support Vector Machine classifier",
+  "model_variant": "S-learner treatment scoring",
   "model_name": "svm_breast_cancer_recommender",
+  "goal_statement": "Predict the most effective breast cancer treatment combination by scoring candidate regimens with a Support Vector Machine trained on outcomes.",
   "numeric_features": [
     "Age at Diagnosis",
     "Tumor Size",

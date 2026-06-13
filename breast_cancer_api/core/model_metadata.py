@@ -5,11 +5,16 @@ from pathlib import Path
 MODEL_METADATA = {
     "model_name": "svm_breast_cancer_recommender",
     "model_family": "Support Vector Machine classifier",
+    "model_variant": "S-learner treatment scoring",
     "target_name": "Effective_Treatment",
     "target_definition": (
         "Proxy outcome created in the training notebook: 1 when survival is at "
         "least 60 months, the patient is living, and relapse status indicates no relapse; "
         "0 otherwise."
+    ),
+    "goal_statement": (
+        "Predict the most effective breast cancer treatment combination by "
+        "scoring candidate regimens with a Support Vector Machine trained on outcomes."
     ),
     "prediction_meaning": (
         "Estimated probability of the proxy outcome for the supplied patient and "

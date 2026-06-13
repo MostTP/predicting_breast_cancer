@@ -6,4 +6,5 @@ router = APIRouter()
 
 @router.post("/recommend")
 def recommend_route(patient: Patient):
+    """Return the most effective predicted treatment combination for the supplied patient."""
     return recommend(patient.dict())

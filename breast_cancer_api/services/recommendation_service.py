@@ -1,5 +1,7 @@
+"""Recommend the most effective treatment combination predicted by the SVM model."""
+
 import itertools
-from core.model_loader import model
+from core.model_loader import model, t_learner_models
 from core.model_metadata import get_model_metadata
 from utils.preprocessing import prepare_patient_df
 from services.explain_service import explain
@@ -97,11 +99,48 @@ def recommend(patient_dict: dict):
         itertools.product(["Yes", "No"], ["Yes", "No"], ["Yes", "No"])
     )
 
+    current_treatment = {
+        "Chemotherapy": patient_dict.get("Chemotherapy", "No"),
+        "Hormone_Therapy": patient_dict.get("Hormone_Therapy", "No"),
+        "Radio_Therapy": patient_dict.get("Radio_Therapy", "No")
+    }
+
+    def _predict_option(chemo: str, hormone: str, radio: str):
+        temp = patient_dict.copy()
+        temp["Chemotherapy"] = chemo
+        temp["Hormone_Therapy"] = hormone
+        temp["Radio_Therapy"] = radio
+
+        df = prepare_patient_df(temp)
+        if t_learner_models is not None:
+            key = f"{chemo}_{hormone}_{radio}"
+            option_model = t_learner_models.get(key)
+            if option_model is not None:
+                prob = option_model.predict_proba(df)[0, 1]
+            else:
+                prob = model.predict_proba(df)[0, 1]
+        else:
+            prob = model.predict_proba(df)[0, 1]
+
+        return {
+            "Chemotherapy": chemo,
+            "Hormone_Therapy": hormone,
+            "Radio_Therapy": radio,
+            "estimated_outcome_probability": float(prob),
+            "model_score": float(prob),
+            # Backward-compatible alias. Prefer estimated_outcome_probability.
+            "success_probability": float(prob),
+            "is_current_treatment": (
+                chemo == current_treatment["Chemotherapy"]
+                and hormone == current_treatment["Hormone_Therapy"]
+                and radio == current_treatment["Radio_Therapy"]
+            )
+        }
+
     results = []
     skipped = []
 
     for chemo, hormone, radio in combinations:
-
         temp = patient_dict.copy()
         temp["Chemotherapy"] = chemo
         temp["Hormone_Therapy"] = hormone
@@ -117,18 +156,7 @@ def recommend(patient_dict: dict):
             })
             continue
 
-        df = prepare_patient_df(temp)
-        prob = model.predict_proba(df)[0, 1]
-
-        results.append({
-            "Chemotherapy": chemo,
-            "Hormone_Therapy": hormone,
-            "Radio_Therapy": radio,
-            "estimated_outcome_probability": float(prob),
-            "model_score": float(prob),
-            # Backward-compatible alias. Prefer estimated_outcome_probability.
-            "success_probability": float(prob)
-        })
+        results.append(_predict_option(chemo, hormone, radio))
 
     if not results:
         return {
@@ -146,6 +174,29 @@ def recommend(patient_dict: dict):
         reverse=True
     )
 
+    baseline_prob = None
+    current_prob = None
+    for r in results:
+        if (
+            r["Chemotherapy"] == "No"
+            and r["Hormone_Therapy"] == "No"
+            and r["Radio_Therapy"] == "No"
+        ):
+            baseline_prob = r["estimated_outcome_probability"]
+        if r["is_current_treatment"]:
+            current_prob = r["estimated_outcome_probability"]
+
+    for rank, r in enumerate(results, start=1):
+        r["rank"] = rank
+        if baseline_prob is not None:
+            r["estimated_treatment_effect_vs_no_treatment"] = (
+                r["estimated_outcome_probability"] - baseline_prob
+            )
+        if current_prob is not None:
+            r["estimated_treatment_effect_vs_current_treatment"] = (
+                r["estimated_outcome_probability"] - current_prob
+            )
+
     top = results[0]
     try:
         expl = explain({
@@ -159,14 +210,35 @@ def recommend(patient_dict: dict):
         top["explanation"] = {"error": "explain_failed"}
 
     return {
+        "current_treatment": current_treatment,
+        "current_treatment_probability": current_prob,
+        "current_treatment_is_best": bool(current_prob is not None and top["is_current_treatment"]),
+        "baseline_treatment": {
+            "Chemotherapy": "No",
+            "Hormone_Therapy": "No",
+            "Radio_Therapy": "No",
+            "estimated_outcome_probability": baseline_prob
+        },
+        "recommended_treatment": top,
+        "recommended_treatment_improvement_over_current": (
+            top["estimated_outcome_probability"] - current_prob
+            if current_prob is not None
+            else None
+        ),
+        "recommended_treatment_improvement_over_baseline": (
+            top["estimated_treatment_effect_vs_no_treatment"]
+            if baseline_prob is not None
+            else None
+        ),
         "top_ranked_option": top,
         "ranked_treatment_options": results,
         "confidence": _confidence_label(results),
         "skipped_combinations": skipped,
         "warnings": _recommendation_warnings(),
         "model_metadata": get_model_metadata(),
-        # Backward-compatible aliases. Prefer top_ranked_option and ranked_treatment_options.
+        # Backward-compatible aliases. Prefer recommended_treatment and ranked_treatment_options.
         "best_treatment": top,
+        "most_effective_treatment": top,
         "all_options": results,
         "disclaimer": get_disclaimer()
     }
