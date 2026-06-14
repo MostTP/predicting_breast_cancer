@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api.router import api_router
+from .api.router import api_router
 
 app = FastAPI(
     title="Breast Cancer Treatment Recommender",

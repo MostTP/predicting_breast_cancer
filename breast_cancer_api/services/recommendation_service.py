@@ -1,11 +1,11 @@
 """Recommend the most effective treatment combination predicted by the SVM model."""
 
 import itertools
-from core.model_loader import model, t_learner_models
-from core.model_metadata import get_model_metadata
-from utils.preprocessing import prepare_patient_df
-from services.explain_service import explain
-from services.disclaimer_service import get_disclaimer
+from ..core.model_loader import model, t_learner_models
+from ..core.model_metadata import get_model_metadata
+from ..utils.preprocessing import prepare_patient_df
+from .explain_service import explain
+from .disclaimer_service import get_disclaimer
 
 
 def _is_valid_combination(patient: dict, chemo: str, hormone: str, radio: str):

@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from schemas.patient import Patient
-from services.recommendation_service import recommend
+from ...schemas.patient import Patient
+from ...services.recommendation_service import recommend
 
 router = APIRouter()
 

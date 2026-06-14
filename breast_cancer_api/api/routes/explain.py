@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from schemas.patient import Patient
-from services.explain_service import explain
+from ...schemas.patient import Patient
+from ...services.explain_service import explain
 
 router = APIRouter()
 

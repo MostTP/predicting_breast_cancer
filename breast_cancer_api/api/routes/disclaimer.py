@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from services.disclaimer_service import get_disclaimer
+from ...services.disclaimer_service import get_disclaimer
 
 router = APIRouter()
 

@@ -3,8 +3,8 @@ import importlib
 import pandas as pd
 import numpy as np
 
-from utils.preprocessing import prepare_patient_df
-from core.model_loader import model
+from ..utils.preprocessing import prepare_patient_df
+from ..core.model_loader import model
 
 def _load_background(columns, n_samples=50):
     """Attempt to load a small background sample from the METABRIC CSV.

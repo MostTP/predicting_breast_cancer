@@ -1,7 +1,7 @@
-from core.model_loader import model
-from core.model_metadata import get_model_metadata
-from utils.preprocessing import prepare_patient_df
-from services.disclaimer_service import get_disclaimer
+from ..core.model_loader import model
+from ..core.model_metadata import get_model_metadata
+from ..utils.preprocessing import prepare_patient_df
+from .disclaimer_service import get_disclaimer
 
 PREDICTION_THRESHOLD = 0.3
 

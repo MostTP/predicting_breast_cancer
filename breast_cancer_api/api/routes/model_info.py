@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from core.model_metadata import get_model_metadata, get_model_metrics
-from services.disclaimer_service import get_disclaimer
+from ...core.model_metadata import get_model_metadata, get_model_metrics
+from ...services.disclaimer_service import get_disclaimer
 
 router = APIRouter()
 

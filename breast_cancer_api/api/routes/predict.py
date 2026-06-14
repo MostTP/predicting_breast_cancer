@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from schemas.patient import Patient
-from services.prediction_service import predict
+from ...schemas.patient import Patient
+from ...services.prediction_service import predict
 
 router = APIRouter()
 
