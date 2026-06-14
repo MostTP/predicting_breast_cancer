@@ -1,0 +1,117 @@
+{
+  "info": {
+    "name": "Breast Cancer Treatment Recommender",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for testing the breast cancer treatment recommendation API."
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://127.0.0.1:8000/health",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Predict Outcome",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8000/predict",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["predict"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Age_at_Diagnosis\": 55,\n  \"Tumor_Size\": 30,\n  \"Tumor_Stage\": 2,\n  \"Neoplasm_Histologic_Grade\": 2,\n  \"Lymph_nodes_examined_positive\": 1,\n  \"ER_Status\": \"Positive\",\n  \"PR_Status\": \"Positive\",\n  \"HER2_Status\": \"Negative\",\n  \"Inferred_Menopausal_State\": \"Post\",\n  \"Chemotherapy\": \"No\",\n  \"Hormone_Therapy\": \"No\",\n  \"Radio_Therapy\": \"No\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Recommend Treatment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8000/recommend",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["recommend"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Age_at_Diagnosis\": 55,\n  \"Tumor_Size\": 30,\n  \"Tumor_Stage\": 2,\n  \"Neoplasm_Histologic_Grade\": 2,\n  \"Lymph_nodes_examined_positive\": 1,\n  \"ER_Status\": \"Positive\",\n  \"PR_Status\": \"Positive\",\n  \"HER2_Status\": \"Negative\",\n  \"Inferred_Menopausal_State\": \"Post\",\n  \"Chemotherapy\": \"No\",\n  \"Hormone_Therapy\": \"No\",\n  \"Radio_Therapy\": \"No\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Explain Prediction",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "http://127.0.0.1:8000/explain",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["explain"]
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"Age_at_Diagnosis\": 55,\n  \"Tumor_Size\": 30,\n  \"Tumor_Stage\": 2,\n  \"Neoplasm_Histologic_Grade\": 2,\n  \"Lymph_nodes_examined_positive\": 1,\n  \"ER_Status\": \"Positive\",\n  \"PR_Status\": \"Positive\",\n  \"HER2_Status\": \"Negative\",\n  \"Inferred_Menopausal_State\": \"Post\",\n  \"Chemotherapy\": \"No\",\n  \"Hormone_Therapy\": \"No\",\n  \"Radio_Therapy\": \"No\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Disclaimer",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://127.0.0.1:8000/disclaimer",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["disclaimer"]
+        }
+      }
+    },
+    {
+      "name": "Model Info",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://127.0.0.1:8000/model-info",
+          "protocol": "http",
+          "host": ["127", "0", "0", "1"],
+          "port": "8000",
+          "path": ["model-info"]
+        }
+      }
+    }
+  ]
+}
