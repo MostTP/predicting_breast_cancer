@@ -1,33 +1,38 @@
 {
+  "numerical_features": [
+    "Age_at_diagnosis",
+    "Tumor_Size",
+    "Neoplasm_Histologic_Grade",
+    "Lymph_nodes_examined_positive",
+    "Gene_Expression_Feature_1",
+    "Gene_Expression_Feature_2",
+    "Copy_Number_Alteration_1"
+  ],
   "categorical_features": [
-    "ER Status",
-    "PR Status",
-    "HER2 Status",
-    "Inferred Menopausal State",
+    "Tumor_Stage",
+    "ER_Status",
+    "PR_Status",
+    "HER2_Status",
+    "Inferred_Menopausal_State",
     "Chemotherapy",
-    "Hormone Therapy",
-    "Radio Therapy"
+    "Hormone_Therapy",
+    "Radio_Therapy"
   ],
-  "features": [
-    "Age at Diagnosis",
-    "Tumor Size",
-    "Tumor Stage",
-    "Neoplasm Histologic Grade",
-    "Lymph nodes examined positive",
-    "ER Status",
-    "PR Status",
-    "HER2 Status",
-    "Inferred Menopausal State",
+  "all_features": [
+    "Age_at_diagnosis",
+    "Tumor_Size",
+    "Neoplasm_Histologic_Grade",
+    "Lymph_nodes_examined_positive",
+    "Gene_Expression_Feature_1",
+    "Gene_Expression_Feature_2",
+    "Copy_Number_Alteration_1",
+    "Tumor_Stage",
+    "ER_Status",
+    "PR_Status",
+    "HER2_Status",
+    "Inferred_Menopausal_State",
     "Chemotherapy",
-    "Hormone Therapy",
-    "Radio Therapy"
-  ],
-  "numeric_features": [
-    "Age at Diagnosis",
-    "Tumor Size",
-    "Tumor Stage",
-    "Neoplasm Histologic Grade",
-    "Lymph nodes examined positive"
-  ],
-  "target": "Effective_Treatment"
+    "Hormone_Therapy",
+    "Radio_Therapy"
+  ]
 }

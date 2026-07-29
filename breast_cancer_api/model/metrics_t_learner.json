@@ -1,63 +1,58 @@
 {
-  "model_name": "svm_t_learner",
-  "model_variant": "T-learner treatment scoring",
-  "dataset_path": "/Users/user/Documents/MostTP/effective-treatment/Breast_Cancer_METABRIC.csv",
-  "dataset_rows": 2509,
-  "combination_metrics": {
-    "Yes_Yes_Yes": {
-      "rows": 162,
-      "roc_auc_estimate": 0.4142852443239224,
-      "train_rows": 121,
-      "test_rows": 41,
-      "roc_auc": 1.0
-    },
-    "Yes_Yes_No": {
-      "rows": 29,
-      "roc_auc_estimate": 0.3027412183608399,
-      "train_rows": 29,
-      "roc_auc": null
-    },
-    "Yes_No_Yes": {
-      "rows": 173,
-      "roc_auc_estimate": 0.4006116429423145,
-      "train_rows": 129,
-      "test_rows": 44,
-      "roc_auc": 1.0
-    },
-    "Yes_No_No": {
-      "rows": 48,
-      "roc_auc_estimate": 0.32662334300328394,
-      "train_rows": 36,
-      "test_rows": 12,
-      "roc_auc": 1.0
-    },
-    "No_Yes_Yes": {
-      "rows": 606,
-      "roc_auc_estimate": 0.3344128514723249,
-      "train_rows": 454,
-      "test_rows": 152,
-      "roc_auc": 1.0
-    },
-    "No_Yes_No": {
-      "rows": 419,
-      "roc_auc_estimate": 0.32049447549712323,
-      "train_rows": 314,
-      "test_rows": 105,
-      "roc_auc": 1.0
-    },
-    "No_No_Yes": {
-      "rows": 232,
-      "roc_auc_estimate": 0.426131673804104,
-      "train_rows": 174,
-      "test_rows": 58,
-      "roc_auc": 1.0
-    },
-    "No_No_No": {
-      "rows": 311,
-      "roc_auc_estimate": 0.26961787408087023,
-      "train_rows": 233,
-      "test_rows": 78,
-      "roc_auc": 1.0
-    }
+  "No_No_No": {
+    "n_samples": 1176,
+    "n_positive": 137,
+    "n_negative": 1039,
+    "inverted": false,
+    "val_roc_auc": 0.817384370015949,
+    "train_roc_auc": 0.893565169769989
+  },
+  "Yes_No_No": {
+    "n_samples": 289,
+    "n_positive": 80,
+    "n_negative": 209,
+    "inverted": false,
+    "val_roc_auc": 0.5096726190476191,
+    "train_roc_auc": 0.2719872754491018
+  },
+  "No_Yes_No": {
+    "n_samples": 491,
+    "n_positive": 146,
+    "n_negative": 345,
+    "inverted": false,
+    "val_roc_auc": 0.6253694581280789,
+    "train_roc_auc": 0.795959595959596
+  },
+  "No_No_Yes": {
+    "n_samples": 452,
+    "n_positive": 147,
+    "n_negative": 305,
+    "inverted": false,
+    "val_roc_auc": 0.7401639344262295,
+    "train_roc_auc": 0.7888993975059548
+  },
+  "Yes_No_Yes": {
+    "n_samples": 151,
+    "n_positive": 63,
+    "n_negative": 88,
+    "inverted": false,
+    "val_roc_auc": 0.5491452991452991,
+    "train_roc_auc": 0.8027142857142857
+  },
+  "No_Yes_Yes": {
+    "n_samples": 512,
+    "n_positive": 189,
+    "n_negative": 323,
+    "inverted": false,
+    "val_roc_auc": 0.6475708502024291,
+    "train_roc_auc": 0.764387288875199
+  },
+  "Yes_Yes_Yes": {
+    "n_samples": 135,
+    "n_positive": 70,
+    "n_negative": 65,
+    "inverted": false,
+    "val_roc_auc": 0.8296703296703296,
+    "train_roc_auc": 0.8332760989010989
   }
 }

@@ -11,48 +11,27 @@ from .disclaimer_service import get_disclaimer
 def _is_valid_combination(patient: dict, chemo: str, hormone: str, radio: str):
     """Apply conservative clinical plausibility checks.
 
-    These rules are guardrails for unrealistic combinations. They are not a
-    substitute for guideline-driven treatment planning.
+    Only filters truly implausible combinations. The patient's actual
+    current treatment is always preserved so comparisons remain valid.
     """
     er = patient.get("ER_Status")
     pr = patient.get("PR_Status")
-    her2 = patient.get("HER2_Status")
-    tumor_stage = patient.get("Tumor_Stage")
-    tumor_size = patient.get("Tumor_Size")
-    positive_nodes = patient.get("Lymph_nodes_examined_positive")
 
+    current_chemo = patient.get("Chemotherapy", "No")
+    current_hormone = patient.get("Hormone_Therapy", "No")
+    current_radio = patient.get("Radio_Therapy", "No")
+
+    # NEVER filter out the patient's actual current treatment
+    if chemo == current_chemo and hormone == current_hormone and radio == current_radio:
+        return True, None
+
+    # Truly implausible: hormone therapy without hormone receptors
     if hormone == "Yes":
         if er != "Positive" and pr != "Positive":
-            return False, "Hormone therapy unlikely for ER-/PR- patients"
+            return False, "Hormone therapy is not indicated for ER-/PR- patients"
 
-    if hormone == "No" and (er == "Positive" or pr == "Positive"):
-        return False, "Hormone receptor positive patients usually need endocrine therapy considered"
-
-    try:
-        if tumor_stage is not None:
-            ts = float(tumor_stage)
-            if ts >= 3 and chemo == "No":
-                return False, "High tumor stage usually warrants chemotherapy"
-            if ts >= 2 and radio == "No":
-                return False, "Stage II+ disease often requires radiation to be considered"
-    except Exception:
-        pass
-
-    if her2 == "Positive" and chemo == "No":
-        return False, "HER2+ patients commonly receive systemic treatment; HER2-targeted therapy is not modeled"
-
-    try:
-        if tumor_size is not None and float(tumor_size) >= 50 and chemo == "No":
-            return False, "Large tumors commonly require systemic therapy to be considered"
-    except Exception:
-        pass
-
-    try:
-        if positive_nodes is not None and float(positive_nodes) > 0 and radio == "No":
-            return False, "Node-positive disease often requires radiation to be considered"
-    except Exception:
-        pass
-
+    # All other combinations are clinically possible (patient may have refused,
+    # been unfit, or had a different risk profile). Let the model score them.
     return True, None
 
 
@@ -141,12 +120,7 @@ def recommend(patient_dict: dict):
     skipped = []
 
     for chemo, hormone, radio in combinations:
-        temp = patient_dict.copy()
-        temp["Chemotherapy"] = chemo
-        temp["Hormone_Therapy"] = hormone
-        temp["Radio_Therapy"] = radio
-
-        valid, reason = _is_valid_combination(temp, chemo, hormone, radio)
+        valid, reason = _is_valid_combination(patient_dict, chemo, hormone, radio)
         if not valid:
             skipped.append({
                 "Chemotherapy": chemo,

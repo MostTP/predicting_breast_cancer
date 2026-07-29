@@ -1,0 +1,50 @@
+{
+  "model_type": "SVM S-Learner (Calibrated)",
+  "best_params": {
+    "classifier__estimator__kernel": "rbf",
+    "classifier__estimator__gamma": "scale",
+    "classifier__estimator__degree": 3,
+    "classifier__estimator__class_weight": "balanced",
+    "classifier__estimator__C": 0.1
+  },
+  "features": {
+    "numerical_features": [
+      "Age_at_diagnosis",
+      "Tumor_Size",
+      "Neoplasm_Histologic_Grade",
+      "Lymph_nodes_examined_positive",
+      "Gene_Expression_Feature_1",
+      "Gene_Expression_Feature_2",
+      "Copy_Number_Alteration_1"
+    ],
+    "categorical_features": [
+      "Tumor_Stage",
+      "ER_Status",
+      "PR_Status",
+      "HER2_Status",
+      "Inferred_Menopausal_State",
+      "Chemotherapy",
+      "Hormone_Therapy",
+      "Radio_Therapy"
+    ],
+    "all_features": [
+      "Age_at_diagnosis",
+      "Tumor_Size",
+      "Neoplasm_Histologic_Grade",
+      "Lymph_nodes_examined_positive",
+      "Gene_Expression_Feature_1",
+      "Gene_Expression_Feature_2",
+      "Copy_Number_Alteration_1",
+      "Tumor_Stage",
+      "ER_Status",
+      "PR_Status",
+      "HER2_Status",
+      "Inferred_Menopausal_State",
+      "Chemotherapy",
+      "Hormone_Therapy",
+      "Radio_Therapy"
+    ]
+  },
+  "training_samples": 3230,
+  "target": "Effective_Treatment (OS>=60mo, Living, No Relapse)"
+}
